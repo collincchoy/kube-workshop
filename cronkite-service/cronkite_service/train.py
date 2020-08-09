@@ -22,6 +22,7 @@ def train_and_save_model(**rfc_kwargs):
     train_Y = train_df["Survived"]
 
     model = RandomForestClassifier(**rfc_kwargs)
+    breakpoint()
     model.fit(train_X, train_Y)
 
     with open(OUTPUT_LOCATION, "wb") as f:
