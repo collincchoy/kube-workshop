@@ -4,6 +4,7 @@ from fastapi import FastAPI
 import pandas as pd
 from pydantic import BaseModel
 
+from cronkite_service.enum_types import TicketClass, Sex
 from cronkite_service.predict import load_model
 
 
@@ -14,17 +15,6 @@ model = load_model()
 @app.get("/")
 async def healthz():
     return {"status": "up"}
-
-
-class TicketClass(int, Enum):
-    upper = 1
-    middle = 2
-    lower = 3
-
-
-class Sex(str, Enum):
-    male = "male"
-    female = "female"
 
 
 class Passenger(BaseModel):
