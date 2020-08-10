@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+  <title>Whoop Whoop</title>
+</head>
+
+<body>
+  <section class="container">
+    <form class="form" action="/submit">
+      <p>
+        Tell me some stuff about yourself and I'll tell you your survival rate on the Titanic.
+      </p>
+      <div class="form-group">
+        <input name="sex" type="radio" id="male" value="male">
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="sex" value="female">
+        <label for="female">Female</label><br>
+      </div>
+
+      <div class="form-group">
+        <h3>Ticket Class:</h3>
+        <input type="radio" id="1stClass" name="ticket_class" value="1" />
+        <label for="1stClass">1st</label>
+        </br>
+        <input type="radio" id="2ndClass" name="ticket_class" value="2" />
+        <label for="2ndClass">2nd</label>
+        </br>
+        <input type="radio" id="3rdClass" name="ticket_class" value="3" />
+        <label for="3rdClass">3rd</label>
+        </br>
+      </div>
+
+      <div class="form-group">
+        <label for="num_siblings"># of siblings</label>
+        <input type="number" id="num_siblings" name="num_siblings" min="0" value="0">
+      </div>
+
+      <div class="form-group">
+        <h3>With Spouse:</h3>
+        <input type="radio" id="spouseFalse" name="with_spouse" value="false" />
+        <label for="spouseFalse">No</label>
+        <br>
+        <input type="radio" id="spouseTrue" name="with_spouse" value="true" />
+        <label for="spouseTrue">Yes</label>
+        <br>
+      </div>
+
+      <div class="form-group">
+        <label for="num_parents"># of parents</label>
+        <input type="number" id="num_parents" name="num_parents" min="0" value="0" max="2">
+      </div>
+
+      <div class="form-group">
+        <label for="num_children"># of children</label>
+        <input type="number" id="num_children" name="num_children" min="0" value="0">
+      </div>
+
+      <button class="button" type="submit">Submit</button>
+    </form>
+    <div id="results" class="flex-centered hidden">
+      <h2 id="guess">Thinking</h2>
+      <h3 id="certainty">...</h3>
+      <button class="button close-button">X</button>
+    </div>
+  </section>
+</body>
+
+<script>
+  const resultsSection = document.querySelector("#results");
+  const resultsGuess = document.querySelector("#guess");
+  const resultsCertainty = document.querySelector("#certainty");
+  const showResults = (results) => {
+    resultsGuess.innerHTML = results.guess;
+    resultsCertainty.innerHTML = results.certainty;
+    resultsSection.classList.remove("hidden");
+  }
+  const hideResults = () => resultsSection.classList.add("hidden");
+
+  // Close button
+  document.querySelector("#results > .close-button").addEventListener("click", hideResults);
+
+  // listen for any form submit event 
+  document.body.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    try {
+      const jsonResponse = await (await fetch(form.action, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(formData)),
+      })).json()
+
+      showResults(jsonResponse.prediction);
+    } catch (e) {
+      console.log(e);
+    }
+  }); 
+</script>
+
+</html>
