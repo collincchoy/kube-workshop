@@ -49,10 +49,15 @@ async def predict_survival(passenger: Passenger):
         ]
     )
     predictions = model.predict_proba(passenger_df)
-    _, survival_proba = predictions[0]  # Only 1 passenger. Discard 0 probability.
+    negative_conf, positive_conf = predictions[0]  # Only 1 passenger
+    predicted_survival = bool(round(positive_conf))
+    if predicted_survival:
+        return {
+            "guess": PassengerSurvivalPrediction.GuessOption.survived,
+            "certainty": positive_conf,
+        }
+
     return {
-        "guess": PassengerSurvivalPrediction.GuessOption.survived
-        if round(survival_proba)
-        else PassengerSurvivalPrediction.GuessOption.not_survived,
-        "certainty": survival_proba,
+        "guess": PassengerSurvivalPrediction.GuessOption.not_survived,
+        "certainty": negative_conf,
     }

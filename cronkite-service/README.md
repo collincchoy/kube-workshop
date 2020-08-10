@@ -34,3 +34,5 @@ Run the webserver using `uvicorn`.
 ```
 poetry run uvicorn cronkite_service.app:app
 ```
+
+Now go to `localhost:8000/docs` or `localhost:8000/redoc` to view and test the service.
