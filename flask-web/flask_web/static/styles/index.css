@@ -16,6 +16,30 @@ body {
   display: none !important;
 }
 
+.success {
+  color: #0fc361;
+}
+
+.error {
+  color: #fb3838;
+}
+
+#guess.success::before {
+  content: "🎉";
+}
+
+#guess.success::after {
+  content: "🎉 ";
+}
+
+#guess.error::before {
+  content: "☠️";
+}
+
+#guess.error::after {
+  content: "☠️";
+}
+
 .container {
   display: flex;
   flex-direction: column;

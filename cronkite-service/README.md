@@ -27,11 +27,17 @@ That model gets pickled and saved to `data/rf_model.pkl`. The model is trained t
 poetry run train_cronkite
 ```
 
+For more information about the alogrithm see these resources on RandomForest:
+
+- https://www.kaggle.com/alexisbcook/titanic-tutorial
+- https://enlight.nyc/projects/random-forest
+
 ### Serve the model
 
 Run the webserver using `uvicorn`.
 
 ```
+# or with --reload
 poetry run uvicorn cronkite_service.app:app
 ```
 

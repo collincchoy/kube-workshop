@@ -76,6 +76,14 @@
   const resultsCertainty = document.querySelector("#certainty");
   const showResults = (results) => {
     resultsGuess.innerHTML = results.guess;
+    if (results.guess === "Survived") {
+      resultsGuess.classList.remove("error");
+      resultsGuess.classList.add("success");
+    } else {
+      resultsGuess.classList.remove("success");
+      resultsGuess.classList.add("error");
+    }
+
     resultsCertainty.innerHTML = results.certainty;
     resultsSection.classList.remove("hidden");
   }
