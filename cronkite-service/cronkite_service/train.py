@@ -10,19 +10,18 @@ TRAINING_DATA = DATA_DIR / "train.csv"
 OUTPUT_LOCATION = DATA_DIR / "rf_model.pkl"
 
 
-def extract_features(passenger_df: pd.DataFrame) -> pd.DataFrame:
+def _extract_features(passenger_df: pd.DataFrame) -> pd.DataFrame:
     feats = ["Pclass", "Sex", "SibSp", "Parch"]
     return pd.get_dummies(passenger_df[feats])
 
 
-def train_and_save_model(**rfc_kwargs):
+def _train_and_save_model(**rfc_kwargs):
     train_df = pd.read_csv(TRAINING_DATA)
 
-    train_X = extract_features(train_df)
+    train_X = _extract_features(train_df)
     train_Y = train_df["Survived"]
 
     model = RandomForestClassifier(**rfc_kwargs)
-    breakpoint()
     model.fit(train_X, train_Y)
 
     with open(OUTPUT_LOCATION, "wb") as f:
@@ -32,5 +31,10 @@ def train_and_save_model(**rfc_kwargs):
     print(f"🎯 Accuracy score: {score}%")
 
 
+def entrypoint():
+    """Primary script entrypoint."""
+    _train_and_save_model(max_depth=5, random_state=1)
+
+
 if __name__ == "__main__":
-    train_and_save_model(max_depth=5, random_state=1)
+    entrypoint()
