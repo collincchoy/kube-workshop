@@ -7,7 +7,8 @@ html {
 }
 
 body {
-  background-image: url(https://i.pinimg.com/originals/e5/88/03/e588037a6b383f9228d4ff2c8046107e.jpg);
+  /* background-image: url(https://i.pinimg.com/originals/e5/88/03/e588037a6b383f9228d4ff2c8046107e.jpg); */
+  background-image: url("/static/images/titanic.jpg");
   font-family: Roboto;
 }
 
