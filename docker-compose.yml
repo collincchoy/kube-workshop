@@ -18,3 +18,10 @@ services:
     ports:
       - 8000
     command: "--host 0.0.0.0"
+    volumes:
+      - ".:/app:rw"
+      - "./cronkite-service/data:/data2:rw"
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=supersecret
