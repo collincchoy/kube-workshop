@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: webserver
 spec:
+  type: NodePort
   selector:
     app: webserver
   ports:
     - name: webserver
       port: 5000
-      targetPort: http
+      targetPort: 5000
