@@ -6,4 +6,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8000
 
-ENTRYPOINT ["uvicorn", "cronkite_service.app:app"]
+ENTRYPOINT ["uvicorn", "cronkite_service.app:app", "--host", "0.0.0.0"]
