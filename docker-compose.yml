@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   flaskweb:
-    image: flaskweb
+    image: kube-workshop-flask-web
     build:
       context: flask-web
       # dockerfile: flask-web/Dockerfile
@@ -11,7 +11,7 @@ services:
     environment:
       - CRONKITE_HOST=http://cronkiteservice:8000
   cronkiteservice:
-    image: cronkiteservice
+    image: kube-workshop-cronkite
     build:
       context: cronkite-service
       # dockerfile: cronkite-service/Dockerfile
