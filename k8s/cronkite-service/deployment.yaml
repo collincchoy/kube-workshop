@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cronkite-svc
+spec:
+  selector:
+    matchLabels:
+      app: cronkite-svc
+  template:
+    metadata:
+      labels:
+        app: cronkite-svc
+    spec:
+      containers:
+        - name: cronkite-svc
+          image: collincchoy/kube-workshop-cronkite
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8000
